@@ -12,7 +12,7 @@ ci-dessous la structure des données remontées :
   </tr>
   <tr>
     <td align="center">
-      Suggested ideas during the brainstorming.
+      Data Structure 
     </td>
   </tr>
 </table>
