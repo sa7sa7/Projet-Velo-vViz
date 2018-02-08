@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src='https://api.mapbox.com/mapbox.js/v2.2.3/mapbox.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/v2.2.3/mapbox.css' rel='stylesheet' />
+    <style>
+        body {
+            margin: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        #map {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <style>
+        /* set the CSS */
+
+        body {
+            font: 12px Arial;
+        }
+
+        div.tooltip {
+            position: absolute;
+            text-align: center;
+            width: 200px;
+            height: 80px;
+            padding: 2px;
+            font: 12px sans-serif;
+            background: lightsteelblue;
+            border: 0px;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+
+    <div id="map"></div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3-legend/1.1.0/d3-legend.js"></script>
+    <script>
+        L.mapbox.accessToken = 'pk.eyJ1IjoiZW5qYWxvdCIsImEiOiJjaWhtdmxhNTIwb25zdHBsejk0NGdhODJhIn0.2-F2hS_oTZenAWc0BMf_uw'
+
+
+
+        //Setup our Leaflet map using Mapbox.js
+        var map = L.mapbox.map('map', 'mapbox.pencil', {
+                maxZoom: 18,
+                minZoom: 12
+            })
+            .setView([45.7531152, 4.827906], 12);
+
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+            maxZoom: 18,
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+                '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            id: 'mapbox.streets'
+        }).addTo(map);
+
+
+        // Setup our svg layer that we can manipulate with d3
+        var svgGra = d3.select(map.getPanes().overlayPane)
+            .append("svg");
+
+        var svg = d3.select(map.getPanes().overlayPane)
+            .append("svg");
+
+
+
+        // Define the div for the tooltip
+        var div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        /*****************************/
+
+        /***************************/
+
+        // Define the div for the tooltip
+        //var pieChart = d3.select("body").append("div")  
+        //.attr("class", "tooltip")       
+        //.style("opacity", 0);
+
+        var g = svg.append("g").attr("class", "leaflet-zoom-hide");
+
+        function project(ll) {
+            // our data came from csv, make it Leaflet friendly
+            var a = [+ll.lat, +ll.lon];
+            //console.log(ll)
+            // convert it to pixel coordinates
+            var point = map.latLngToLayerPoint(L.latLng(ll))
+            return point;
+        }
+
+        d3.json("stations.json", function(err, data) {
+            var dots = g.selectAll("circle.dot")
+                .data(data.values)
+            //console.log(dots)
+            dots.enter().append("circle").classed("dot", true)
+                .attr("r", 1)
+                .style({
+                    fill: "#0082a3",
+                    "fill-opacity": 0.6,
+                    stroke: "#004d60",
+                    "stroke-width": 1
+                })
+                .transition().duration(1000)
+                .attr("r", 6)
+
+
+            function render() {
+                // We need to reposition our SVG and our containing group when the map
+                // repositions via zoom or pan
+                // https://github.com/zetter/voronoi-maps/blob/master/lib/voronoi_map.js
+
+                var bounds = map.getBounds();
+                var topLeft = map.latLngToLayerPoint(bounds.getNorthWest())
+                var bottomRight = map.latLngToLayerPoint(bounds.getSouthEast())
+                svg.style("width", map.getSize().x + "px")
+                    .style("height", map.getSize().y + "px")
+                    .style("left", topLeft.x + "px")
+                    .style("top", topLeft.y + "px");
+                g.attr("transform", "translate(" + -topLeft.x + "," + -topLeft.y + ")");
+
+
+                // We reproject our data with the updated projection from leaflet
+                g.selectAll("circle.dot")
+                    .attr({
+                        cx: function(d) {
+                            return project(d).x
+                        },
+                        cy: function(d) {
+                            return project(d).y
+                        },
+                        r: function(d) {
+                            return d.bike_stands / 5;
+                        },
+                    }).style("fill", function(d) {
+                        if (d.available_bikes == 0) return "#cc0010";
+                        else return "#ffffff"
+                    }).on("mouseover", handleMouseOver).on("mouseout", handleMouseOut).on("click", handleMouseClicked);
+
+
+                g.selectAll("g.pie")
+                    .attr({
+                        x: function(d) {
+                            return project(d).x
+                        },
+                        y: function(d) {
+                            return project(d).y
+                        },
+                    })
+
+
+            }
+
+            function handleMouseOut(d, i) {
+                // Use D3 to select element, change color back to normal
+                div.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+                render();
+            }
+
+            function createBarChart(d) {
+                //BAR CHART/////////////////////////////////////////////////
+                var aColor = [
+                    'rgb(0, 204, 0)',
+                    'rgb(204, 0, 0)',
+                ]
+
+                var datas = [{
+                        "label": "Available Bikes",
+                        "value": d.available_bikes,
+                        "posX": d3.event.pageX + 50,
+                        "posY": d3.event.pageY
+                    },
+                    {
+                        "label": "Available Stands",
+                        "value": d.available_bike_stands,
+                        "posX": d3.event.pageX + 50,
+                        "posY": d3.event.pageY + 20
+                    },
+                ];
+
+                svg.append("g").attr("id", "bar")
+                    .selectAll("bar")
+                    .data(datas)
+                    .enter().append("rect")
+                    .style("fill", function(d, i) {
+                        return aColor[i];
+                    })
+                    .attr("x", function(d) {
+                        return d.posX;
+                    })
+                    .attr("width", function(d) {
+                        return d.value * 10;
+                    })
+                    .attr("y", function(d) {
+                        return d.posY;
+                    })
+                    .attr("height", 10);
+
+                /////////////////////////////////////////////////////////////
+            }
+
+            function createPieChart(d) {
+
+                //PIE CHART///////////////////////////////////////////////////////////////////////////////////////
+                var w = 60;
+                var h = 60;
+                var r = h / 2;
+                var aColor = [
+                    'rgb(0, 204, 0)',
+                    'rgb(204, 0, 0)',
+                ]
+                var available_bikes_p = Math.round(parseFloat(d.available_bikes) * 100 / parseFloat(d.bike_stands))
+
+                var datas = [{
+                        "label": "Available Bikes",
+                        "value": available_bikes_p
+                    },
+                    {
+                        "label": "Available Stands",
+                        "value": 100 - available_bikes_p
+                    },
+                ];
+
+                var g = svg.append("g").attr("id", "pie").attr("class", "pie").data([datas]).attr("width", w).attr("height", h).append("g").attr("transform", "translate(" + d3.event.pageX + "," + d3.event.pageY + ")");
+
+                var pie = d3.layout.pie().value(function(d) {
+                    return d.value;
+                });
+
+                // Declare an arc generator function
+                var arc = d3.svg.arc().outerRadius(r);
+
+                // Select paths, use arc generator to.attr("class", "leaflet-zoom-hide");
+
+                var arcs = g.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
+                arcs.append("svg:path")
+                    .attr("fill", function(d, i) {
+                        return aColor[i];
+                    })
+                    .attr("d", function(d) {
+                        return arc(d);
+                    });
+                // Add the text
+                arcs.append("svg:text")
+                    .attr("transform", function(d) {
+                        d.innerRadius = 100; /* Distance of label to the center*/
+                        d.outerRadius = r;
+                        return "translate(" + arc.centroid(d) + ")";
+                    })
+                    .attr("text-anchor", "middle")
+                    .text(function(d, i) {
+                        return datas[i].label + ";" + datas[i].value + '%';
+                    });
+                //////////////////////////////////////////////////////////////////////////////////////////
+            }
+
+            function handleMouseClicked(d, i) {
+
+                createBarChart(d)
+                createPieChart(d)
+                render();
+            }
+
+            function handleMouseOver(d, i) { // Add interactivity
+                //console.log(d) ;
+                d3.select(this).attr({
+                    r: function(d) {
+                        return d.bike_stands;
+                    }
+                }).style("fill", function(d) {
+                    if (d.available_bikes == 0) return "#cc0010";
+                    else return "#ffffff"
+                });
+
+                div.transition()
+                    .duration(200)
+                    .style("opacity", .7);
+                div.html("<h2>name:" + d.name + "</h2><br/> ")
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px")
+
+
+            }
+
+
+            // re-render our visualization whenever the view changes
+            map.on("viewreset", function() {
+                render()
+                svg.selectAll("#pie").remove()
+                svg.selectAll("#bar").remove()
+
+            })
+            map.on("move", function() {
+                render()
+                svg.selectAll("#pie").remove()
+                svg.selectAll("#bar").remove()
+
+            })
+
+            // render our initial visualization
+            render()
+        })
+    </script>
+</body>
