@@ -14,11 +14,6 @@ il vous suffit de cliquer sur un bouton prévision pour une station donnée à u
       <img src="img/1.jpg" style="width: 100px;">
     </td>
   </tr>
-  <tr>
-    <td align="center">
-      Suggested ideas during the brainstorming.
-    </td>
-  </tr>
 </table>
 
 Finally, after filtering these ideas, we decided not to use people's picures, and to use the checkbox to select only some professions.
