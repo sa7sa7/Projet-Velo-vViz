@@ -33,11 +33,6 @@ We roughly had the same ideas when proposing some designs.
       <img src="img/2.jpg" style="width: 100px;">
     </td>
   </tr>
-  <tr>
-    <td align="center">
-      First proposal
-    </td>
-  </tr>
 </table>
 <table border="0">
   <tr>
