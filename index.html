@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <head>
     <meta charset="utf-8">
@@ -22,8 +22,6 @@
         }
     </style>
     <style>
-        /* set the CSS */
-
         body {
             font: 12px Arial;
         }
@@ -31,14 +29,92 @@
         div.tooltip {
             position: absolute;
             text-align: center;
-            width: 200px;
-            height: 80px;
+            width: 250px;
+            height: 160px;
             padding: 2px;
-            font: 12px sans-serif;
+            font: 10px sans-serif;
             background: lightsteelblue;
-            border: 0px;
-            border-radius: 8px;
+            border: 2px;
+            border-radius: 18px;
             pointer-events: none;
+            opacity: 0;
+
+        }
+
+        div.tooltip2 {
+            position: absolute;
+            opacity: 0;
+            width: 400px;
+            height: 250px;
+            padding: 2px;
+            font: 10px sans-serif;
+            background: rgba(76, 175, 80, 0.1);
+            border: 2px;
+            border-radius: 18px;
+            pointer-events: none;
+        }
+
+        div.tooltip4 {
+            position: absolute;
+            text-align: center;
+            width: 900px;
+            height: 50px;
+            left: 200px;
+            top: 10px;
+            padding: 2px;
+            font: 10px sans-serif;
+            background: lightsteelblue;
+            border: 2px;
+            border-radius: 10px;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .cont {
+
+            position: absolute;
+            text-align: center;
+            width: 400px;
+            height: 250px;
+            padding: 2px;
+        }
+
+        #data-changer {
+            position: absolute;
+            font: 15px sans-serif;
+            text-align: center;
+            color: white;
+            opacity: 0.88;
+            width: 120px;
+            height: 50px;
+            padding: 5px;
+            top: 10px;
+            left: 50px;
+            border-radius: 10px;
+            background-color: #4da8f2;
+        }
+        #date-changer {
+            position:absolute;
+            writing-mode: bt-lr;
+            -webkit-appearance: slider-vertical;
+            width: 8px;
+            height: 380px;
+            padding: 0 5px;
+            position: absolute;
+            top:70px;
+            left:15px;
+        }
+        #dateValue {
+            position:absolute;
+            writing-mode: bt-lr;
+            -webkit-appearance: slider-vertical;
+            width: 150px;
+            height: 380px;
+            padding: 0 5px;
+            position: absolute;
+            top:440px;
+            left:35px;
+            color: blue;
         }
     </style>
 </head>
@@ -47,6 +123,15 @@
     <script src="http://d3js.org/d3.v3.min.js"></script>
 
     <div id="map"></div>
+    <div>
+        <input type="range" value="0" min="0" max="296" orient="vertical" id="date-changer"/>
+      </div>
+      <div>
+        <label><span id="dateValue"></span></label>
+      </div>
+    <div id="option">
+        <input name="updateButton" id="data-changer" type="button" value="Arrondissement" onclick="updateData()" />
+    </div>
     <script src="//cdnjs.cloudflare.com/ajax/libs/d3-legend/1.1.0/d3-legend.js"></script>
     <script>
         L.mapbox.accessToken = 'pk.eyJ1IjoiZW5qYWxvdCIsImEiOiJjaWhtdmxhNTIwb25zdHBsejk0NGdhODJhIn0.2-F2hS_oTZenAWc0BMf_uw'
@@ -68,7 +153,7 @@
             id: 'mapbox.streets'
         }).addTo(map);
 
-
+//DEFINITION DE DIVS////////////////////////////////////////////////////
         // Setup our svg layer that we can manipulate with d3
         var svgGra = d3.select(map.getPanes().overlayPane)
             .append("svg");
@@ -76,53 +161,118 @@
         var svg = d3.select(map.getPanes().overlayPane)
             .append("svg");
 
+        var g = svg.append("g").attr("class", "leaflet-zoom-hide");
+
+        var divGra = svg.append("g").attr("id", "container")
+
+        var svgGra = divGra.append("svg").attr("id", "svgcontainer")
+
+
+        var divGra = d3.select("body").append("div")
+            .attr("id", "htmlcont")
+            .attr("class", "tooltip2")
+            .style("opacity", 0)
 
 
         // Define the div for the tooltip
         var div = d3.select("body").append("div")
+            .attr("id", "pop")
             .attr("class", "tooltip")
             .style("opacity", 0);
 
-        /*****************************/
 
-        /***************************/
+        var divArr2 = d3.select("body").append("div")
+            .attr("id", "arr2")
+            .attr("class", "tooltip4")
+            .style("opacity", 0);
+///////////////////////////////////////////////////////////////////////////
 
-        // Define the div for the tooltip
-        //var pieChart = d3.select("body").append("div")  
-        //.attr("class", "tooltip")       
-        //.style("opacity", 0);
+//FUNCTIONS///////////////////////////////////////////////////////////////
 
-        var g = svg.append("g").attr("class", "leaflet-zoom-hide");
+        //FUNCTIONS ARRONDISSEMENT//////////////////////////////////////////////////////////////////7
 
-        function project(ll) {
-            // our data came from csv, make it Leaflet friendly
-            var a = [+ll.lat, +ll.lon];
-            //console.log(ll)
-            // convert it to pixel coordinates
-            var point = map.latLngToLayerPoint(L.latLng(ll))
-            return point;
+        var nbvelov = [];
+
+        function veloArrond(data) {
+
+            var nbvelov1 = 0,nbvelov2 = 0,nbvelov3 = 0,nbvelov4 = 0,nbvelov5 = 0,nbvelov6 = 0,nbvelov7 = 0,nbvelov8 = 0,nbvelov9 = 0,nbvelovV = 0,nbvelovVa = 0,nbvelovCal = 0
+
+            for (i = 0; i < data.values.length; i++) {
+                //console.log(data.values[i].commune)
+
+                if (data.values[i].commune == "Lyon 1 er") {
+                    nbvelov1 = nbvelov1 + parseFloat(data.values[i].available_bikes)
+                }
+                if (data.values[i].commune == "Lyon 2 ème") {
+                    nbvelov2 = nbvelov2 + parseFloat(data.values[i].available_bikes)
+                }
+                if (data.values[i].commune == "Lyon 3 ème") {
+                    nbvelov3 = nbvelov3 + parseFloat(data.values[i].available_bikes)
+                }
+                if (data.values[i].commune == "Lyon 4 ème") {
+                    nbvelov4 = nbvelov4 + parseFloat(data.values[i].available_bikes)
+                }
+                if (data.values[i].commune == "Lyon 5 ème") {
+                    nbvelov5 = nbvelov5 + parseFloat(data.values[i].available_bikes)
+                }
+                if (data.values[i].commune == "Lyon 6 ème") {
+                    nbvelov6 = nbvelov6 + parseFloat(data.values[i].available_bikes)
+                }
+                if (data.values[i].commune == "Lyon 7 ème") {
+                    nbvelov7 = nbvelov7 + parseFloat(data.values[i].available_bikes)
+                }
+                if (data.values[i].commune == "Lyon 8 ème") {
+                    nbvelov8 = nbvelov8 + parseFloat(data.values[i].available_bikes)
+                }
+                if (data.values[i].commune == "Lyon 9 ème") {
+                    nbvelov9 = nbvelov9 + parseFloat(data.values[i].available_bikes)
+                }
+                if (data.values[i].commune == "VILLEURBANNE") {
+                    nbvelovV = nbvelovV + parseFloat(data.values[i].available_bikes)
+                }
+                if (data.values[i].commune == "VAULX-EN-VELIN") {
+                    nbvelovVa = nbvelovVa + parseFloat(data.values[i].available_bikes)
+                }
+                if (data.values[i].commune == "CALUIRE-ET-CUIRE") {
+                    nbvelovCal = nbvelovCal + parseFloat(data.values[i].available_bikes)
+                }
+            }
+
+            nbvelov.push(nbvelov1, nbvelov2, nbvelov3, nbvelov4, nbvelov5, nbvelov6, nbvelov7, nbvelov8, nbvelov9, nbvelovV, nbvelovVa, nbvelovCal);
+            //console.log(nbvelov)
+
         }
+        var clicked = false;
+        function updateData() {
 
-        d3.json("stations.json", function(err, data) {
-            var dots = g.selectAll("circle.dot")
-                .data(data.values)
-            //console.log(dots)
-            dots.enter().append("circle").classed("dot", true)
-                .attr("r", 1)
-                .style({
-                    fill: "#0082a3",
-                    "fill-opacity": 0.6,
-                    stroke: "#004d60",
-                    "stroke-width": 1
-                })
-                .transition().duration(1000)
-                .attr("r", 6)
+            if (clicked == false) {
+                divArr2.transition()
+                    .duration(1500)
+                    .style("opacity", .85);
+                divArr2.html("<h2>Nb de velov par quartier&nbsp&nbsp&nbsp&nbsp1: " + nbvelov[0] + "&nbsp&nbsp&nbsp&nbsp2: " + nbvelov[1] + "&nbsp&nbsp&nbsp&nbsp3: " + nbvelov[2] + "&nbsp&nbsp&nbsp&nbsp4: " + nbvelov[3] + "&nbsp&nbsp&nbsp&nbsp&nbsp5 : " + nbvelov[4] + "&nbsp&nbsp&nbsp&nbsp6: " + nbvelov[5] + "&nbsp&nbsp&nbsp&nbsp7: " + nbvelov[6] + "&nbsp&nbsp&nbsp&nbsp8: " + nbvelov[7] + "&nbsp&nbsp&nbsp&nbsp9: " + nbvelov[8] + "&nbsp&nbsp&nbsp&nbspV: " + nbvelov[9] + "&nbsp&nbsp&nbsp&nbspVV: " + nbvelov[10] + "&nbsp&nbsp&nbsp&nbspCC: " + nbvelov[11] + " </h2>")
+                    .style("left", 500)
+                    .style("top", 500)
 
+                clicked = true
+            } else {
+                divArr2.transition()
+                    .duration(1500)
+                    .style("opacity", 0);
+                clicked = false
+            }
+            //console.log(clicked)
+        }
+        ///////////////////////////////////////////////////////////////////////
 
-            function render() {
+        //FUNCTION RENDER//////////////////////////////////////////////7777
+        function render() {
                 // We need to reposition our SVG and our containing group when the map
                 // repositions via zoom or pan
                 // https://github.com/zetter/voronoi-maps/blob/master/lib/voronoi_map.js
+
+                var color = d3.scale.linear()
+                    .domain([0, 30])
+                    .range([d3.rgb("#FF0000"), d3.rgb('#00FF00')]);
 
                 var bounds = map.getBounds();
                 var topLeft = map.latLngToLayerPoint(bounds.getNorthWest())
@@ -146,9 +296,8 @@
                         r: function(d) {
                             return d.bike_stands / 5;
                         },
-                    }).style("fill", function(d) {
-                        if (d.available_bikes == 0) return "#cc0010";
-                        else return "#ffffff"
+                    }).style("fill", d => {
+                        return color(d.available_bikes)
                     }).on("mouseover", handleMouseOver).on("mouseout", handleMouseOut).on("click", handleMouseClicked);
 
 
@@ -165,16 +314,19 @@
 
             }
 
-            function handleMouseOut(d, i) {
-                // Use D3 to select element, change color back to normal
-                div.transition()
-                    .duration(500)
-                    .style("opacity", 0);
-                render();
-            }
+        function project(ll) {
+            // our data came from csv, make it Leaflet friendly
+            var a = [+ll.lat, +ll.lon];
+            //console.log(ll)
+            // convert it to pixel coordinates
+            var point = map.latLngToLayerPoint(L.latLng(ll))
+            return point;
+        }
 
-            function createBarChart(d) {
+            //////////////////////////////////////////////////////////////////
                 //BAR CHART/////////////////////////////////////////////////
+
+        function createBarChart(d) {
                 var aColor = [
                     'rgb(0, 204, 0)',
                     'rgb(204, 0, 0)',
@@ -183,41 +335,51 @@
                 var datas = [{
                         "label": "Available Bikes",
                         "value": d.available_bikes,
-                        "posX": d3.event.pageX + 50,
-                        "posY": d3.event.pageY
+                        "posXi": d3.event.pageX + 50,
+                        "posYi": d3.event.pageY,
+                        "posXf": 100,
+                        "posYf": 436
                     },
                     {
                         "label": "Available Stands",
                         "value": d.available_bike_stands,
-                        "posX": d3.event.pageX + 50,
-                        "posY": d3.event.pageY + 20
+                        "posXi": d3.event.pageX + 50,
+                        "posYi": d3.event.pageY + 20,
+                        "posXf": 100,
+                        "posYf": 466
                     },
                 ];
 
-                svg.append("g").attr("id", "bar")
+                svgGra.append("g").attr("id", "bar")
                     .selectAll("bar")
                     .data(datas)
                     .enter().append("rect")
+                    .attr("id", "bars")
                     .style("fill", function(d, i) {
                         return aColor[i];
                     })
                     .attr("x", function(d) {
-                        return d.posX;
+                        return d.posXi;
                     })
                     .attr("width", function(d) {
-                        return d.value * 10;
+                        return d.value * 9;
                     })
                     .attr("y", function(d) {
-                        return d.posY;
+                        return d.posYi;
                     })
-                    .attr("height", 10);
-
+                    .attr("height", 10)
+                    .transition().duration(1000).attr("y", function(d) {
+                        return d.posYf;
+                    })
+                    .transition().duration(1000).attr("x", function(d) {
+                        return d.posXf;
+                    })
                 /////////////////////////////////////////////////////////////
             }
+            //PIE CHART///////////////////////////////////////////////////////////////////////////////////////
 
-            function createPieChart(d) {
+        function createPieChart(d) {
 
-                //PIE CHART///////////////////////////////////////////////////////////////////////////////////////
                 var w = 60;
                 var h = 60;
                 var r = h / 2;
@@ -225,7 +387,7 @@
                     'rgb(0, 204, 0)',
                     'rgb(204, 0, 0)',
                 ]
-                var available_bikes_p = Math.round(parseFloat(d.available_bikes) * 100 / parseFloat(d.bike_stands))
+                var available_bikes_p = Math.round(parseFloat(d.available_bikes) * 100 / (parseFloat(d.available_bikes)+parseFloat(d.available_bike_stands)))
 
                 var datas = [{
                         "label": "Available Bikes",
@@ -270,15 +432,40 @@
                 //////////////////////////////////////////////////////////////////////////////////////////
             }
 
-            function handleMouseClicked(d, i) {
+        function createFrame(d) {
+                svgGra.append("rect")
+                    .style("fill", "#d8faff")
+                    .style("opacity", .0)
+                    .attr("id", "idcont")
+                    .attr("class", "cont")
+                    .attr("x", d3.event.pageX)
+                    .attr("y", d3.event.pageY)
+                    .transition()
+                    .duration(1000)
+                    .style("opacity", .7)
+                    .transition().duration(1000).attr("x", 10)
+                    .transition().duration(1000).attr("y", 360)
 
+
+                d3.select("#htmlcont")
+                    .transition()
+                    .duration(1000)
+                    .style("opacity", .7);
+                d3.select("#htmlcont").html("<h2>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspNº: " + d.number + " " + d.name.toUpperCase() + "<h2>Adresse: " + d.address + "</h2></h2> <h2>Velov: " + d.available_bikes + "</h2></h2> <h2>Stand: " + d.available_bike_stands + "</h2><h2>Prediction:</h2>")
+                    .style("left", 20 + "px")
+                    .style("top", 360 + "px")
+            }
+        //FUNCTIONS SOURIS////////////////////////////////////////////////////////////////////777
+            function handleMouseClicked(d, i) {
+                EraseContent()
+                createFrame(d)
                 createBarChart(d)
                 createPieChart(d)
                 render();
             }
 
             function handleMouseOver(d, i) { // Add interactivity
-                //console.log(d) ;
+                //console.log(d);
                 d3.select(this).attr({
                     r: function(d) {
                         return d.bike_stands;
@@ -289,32 +476,140 @@
                 });
 
                 div.transition()
-                    .duration(200)
+                    .duration(1500)
                     .style("opacity", .7);
-                div.html("<h2>name:" + d.name + "</h2><br/> ")
+                div.html("<h2>Name: " + d.name + "<h2>Adresse: " + d.address + "</h2></h2> <h2>Nb Velov: " + d.available_bikes + "</h2></h2> <h2>Nb Stations: " + d.available_bike_stands + "</h2>")
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px")
+            }
 
-
+            function handleMouseOut(d, i) {
+                // Use D3 to select element, change color back to normal
+                div.transition()
+                    .duration(1000)
+                    .style("opacity", 0);
+                render();
             }
 
 
             // re-render our visualization whenever the view changes
             map.on("viewreset", function() {
                 render()
-                svg.selectAll("#pie").remove()
-                svg.selectAll("#bar").remove()
-
+                EraseContent()
+               // console.log(data)
             })
             map.on("move", function() {
                 render()
-                svg.selectAll("#pie").remove()
-                svg.selectAll("#bar").remove()
-
+                EraseContent()
             })
+            ///////////////////////////////////////////////////
+    //ELIMINER QUAND ON BOUGE
+            function EraseContent() {
+                svg.selectAll("#pie").remove()
+                svg.selectAll("#bars").transition().duration(1000).attr("width", 0).remove()
+                svg.selectAll("#bar").remove()
+                svg.selectAll("#idcont").remove()
 
-            // render our initial visualization
-            render()
-        })
+                divGra.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+                render();
+
+                svg.selectAll("#htmlcont").remove()
+                svg.selectAll("#pop").remove()
+
+            }
+            var last_value = 0;
+            var current_value = 0;
+            var minutes = 0;
+            var hour = 10;
+            var days = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+            var day_index = 0;
+            var day = days[0];
+            var day_date = 4;
+            var ind = 0;
+            d3.select("#date-changer").on("change", function() {
+            //console.log(data.values);
+            console.log("-----**________________**---");
+            current_value = this.value
+            console.log("current_value: ", current_value);
+            console.log("last_value: ", last_value);
+            var fileName = "file"+this.value+".json";
+            //console.log(fileName);
+            minutes = current_value * 5 + 10 * 60 - ind * 24 * 60;
+            hour = parseInt(minutes/60);
+            minutes = parseInt(minutes%60);
+            
+            var b = false;
+            if (hour >= 24) {
+                hour = hour - 24;
+                ind += 1;
+                b = true;
+            }
+            if(b) {
+                day_date += 1;
+                b = false;
+            }
+            if(current_value < last_value) {
+                //if(minutes < 0) {
+                //    minutes = 60 + minutes;
+                //}
+                if (hour === 0 && minutes === 0 ) {
+                    hour = 23;
+                    day_date -= 1;
+                }
+            }
+            var dateExact = " 0"+ day_date +"/02/2018- "+hour+":"+minutes;
+            if(hour < 10 && minutes < 10) {
+                var dateExact =" 0"+ day_date +"/02/2018- 0"+hour+":0"+minutes;
+            }
+            else if (hour < 10) {
+                var dateExact =" 0"+ day_date +"/02/2018- 0"+hour+":"+minutes;
+            }
+            else if(minutes < 10){
+                var dateExact =" 0"+ day_date +"/02/2018- "+hour+":0"+minutes;
+            }
+            d3.select('#dateValue').html(dateExact);
+            mainCode(fileName);
+            });
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+//MAIN//////////////////////////////////////////////////////////////////////////////////           
+        function mainCode(fileName) {
+            d3.json(fileName, function(err, data) {
+                var dots = g.selectAll("circle.dot")
+                    .data(data.values)
+                //console.log(dots)
+                dots.enter().append("circle").classed("dot", true)
+                    .attr("r", 1)
+                    .style({
+                        fill: "#0082a3",
+                        "fill-opacity": 0.6,
+                        stroke: "#004d60",
+                        "stroke-width": 1
+                    })
+                    .transition().duration(1000)
+                    .attr("r", 6)
+                var dots = g.selectAll("circle.dot")
+                    .data(data.values)
+                //console.log(data.values)
+                dots.classed("dot", true)
+                .attr("r", 1)
+                .style({
+                    fill: "#0082a3",
+                    "fill-opacity": 0.6,
+                    stroke: "#004d60",
+                    "stroke-width": 1
+                })
+                .transition().duration(1000)
+                .attr("r",4)
+                // render our initial visualization
+                render()
+                veloArrond(data)
+                last_value = current_value;
+            })
+        }
+//////////////////////////////////////////////////////////////////////////////////////////////7
     </script>
 </body>
