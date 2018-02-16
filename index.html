@@ -116,6 +116,24 @@
             left:35px;
             color: blue;
         }
+        .bar{
+          fill: steelblue;
+        }
+
+        .bar:hover{
+          fill: brown;
+        }
+
+          .axis {
+            font: 10px sans-serif;
+          }
+
+          .axis path,
+          .axis line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+          }
     </style>
 </head>
 
@@ -376,6 +394,132 @@
                     })
                 /////////////////////////////////////////////////////////////
             }
+            /// PREVISIONS
+            function Previsions(element) {
+    
+    // set the dimensions of the canvas
+    var margin = {top: 20, right: 20, bottom: 70, left: 40},
+    width = 600 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom;
+
+    // set the ranges
+    var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
+    var y = d3.scale.linear().range([height, 0]);
+    // define the axis
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom")
+
+
+    
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .ticks(10);
+    // add the SVG element
+    var svg2 = d3.select("body").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", 
+              "translate(" + margin.left + "," + margin.top + ")");
+
+    var maxBikes = d3.max(dat.values, function(d){    
+    var temp=parseInt(d.bike_stands);
+        return  temp   }); 
+                  var tab=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24];
+  // scale the range of the data
+  x.domain(tab);
+  y.domain([0, maxBikes]);
+    // add axis
+  svg.append("g").attr("id", "axe1")
+      .attr("class", "x axis")
+      .attr("transform", "translate(950," + 750 + ")")
+      .call(xAxis)
+    .selectAll("text")
+      .style("text-anchor", "end")
+      .attr("dx", "")
+      .attr("dy", "")
+      .attr("transform", "rotate(-90)");
+  
+    
+  svg.append("g").attr("id", "axe2")
+      .attr("class", "y axis")
+      .attr("transform", "translate(950," + 540 + ")")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 5)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("bikes");
+  //var arr= data.values; 
+   //console.log(typeof(arr)); 
+  
+  //arr.forEach(function(element) //{ 
+  
+       var signe=getRandomInt(100)>50?1:-1;
+       var correction=signe*getRandomInt((parseInt(element.bike_stands)-    			    parseInt(element.available_bike_stands)/2));   
+     var     estimation1=parseInt(element.available_bike_stands)+correction;   
+      estimation1=estimation1>0?estimation1:0;
+      estimation1=estimation1>maxBikes?maxBikes:estimation1;
+      var estimation2,estimation3,estimation4,estimation5,estimation6,estimation7,estimation8,estimation9,estimation10,estimation11,estimation12,estimation13,estimation14,estimation15,estimation16,estimation17,estimation18,estimation19,estimation20,estimation21,estimation22,estimation23,estimation24,rand;
+      
+     estimation2=estimation(estimation1,maxBikes);
+     estimation3=estimation(estimation1,maxBikes);
+     estimation4=estimation(estimation1,maxBikes);
+     estimation5=estimation(estimation1,maxBikes);
+     estimation6=estimation(estimation1,maxBikes);
+     estimation7=estimation(estimation1,maxBikes);
+     estimation8=estimation(estimation1,maxBikes);
+     estimation9=estimation(estimation1,maxBikes);
+     estimation10=estimation(estimation1,maxBikes);
+     estimation11=estimation(estimation1,maxBikes);
+     estimation12=estimation(estimation1,maxBikes);
+     estimation13=estimation(estimation1,maxBikes); 
+     estimation14=estimation(estimation1,maxBikes);
+     estimation15=estimation(estimation1,maxBikes);
+     estimation16=estimation(estimation1,maxBikes);
+     estimation17=estimation(estimation1,maxBikes);
+     estimation18=estimation(estimation1,maxBikes);
+     estimation19=estimation(estimation1,maxBikes);
+     estimation20=estimation(estimation1,maxBikes);
+     estimation21=estimation(estimation1,maxBikes);
+     estimation22=estimation(estimation1,maxBikes);
+     estimation23=estimation(estimation1,maxBikes);
+     estimation24=estimation(estimation1,maxBikes);
+    
+    
+     
+    
+     
+    
+      element.previsions=[{"prev":1,"value":estimation1},{"prev":2,"value":estimation2},{"prev":3,"value":estimation3},{"prev":4,"value":estimation4},{"prev":5,"value":estimation5},{"prev":6,"value":estimation6},{"prev":7,"value":estimation7},{"prev":8,"value":estimation8},{"prev":9,"value":estimation9},{"prev":10,"value":estimation10},{"prev":11,"value":estimation11},{"prev":12,"value":estimation12},{"prev":13,"value":estimation13},{"prev":14,"value":estimation14},{"prev":15,"value":estimation15},{"prev":16,"value":estimation16},{"prev":17,"value":estimation17},{"prev":18,"value":estimation18},{"prev":19,"value":estimation19},{"prev":20,"value":estimation20},{"prev":21,"value":estimation21},{"prev":22,"value":estimation20},{"prev":23,"value":estimation23},{"prev":24,"value":estimation24}] ;
+     
+     svg.selectAll("bar").attr("id", "barr").data(element.previsions)
+    .enter().append("rect")
+      .attr("transform", "translate(950," + 540 + ")")
+      .attr("class", "bar")
+      .attr("x",function(d) { return x(d.prev); })
+      .attr("width", x.rangeBand())
+      .attr("y",function(d) { return y(d.value); })
+      .attr("height",function(d) {  
+     return height - y(d.value); }); 
+     
+        } 
+     function estimation(estimation1,maxBikes) {
+       var signe,res,rand;
+      signe=getRandomInt(100)>50?1:-1;
+      rand = getRandomInt(5);
+      res=parseInt(estimation1)+signe*rand;
+      res=res>0?res:0;
+      res=res>maxBikes?maxBikes:res;
+      return res;
+    }
+        function getRandomInt(max) {
+      return Math.floor(Math.random() * Math.floor(max));
+    }
+
             //PIE CHART///////////////////////////////////////////////////////////////////////////////////////
 
         function createPieChart(d) {
@@ -461,6 +605,8 @@
                 createFrame(d)
                 createBarChart(d)
                 createPieChart(d)
+                svg.selectAll("rect").remove()
+                Previsions(d)
                 render();
             }
 
@@ -583,11 +729,12 @@
             });
 
 ////////////////////////////////////////////////////////////////////////////////////////
-
+        var dat;
 //MAIN//////////////////////////////////////////////////////////////////////////////////           
         function mainCode(fileName) {
             d3.json(fileName, function(err, data) {
                 console.log(data)
+                dat = data;
                 var dots = g.selectAll("circle.dot")
                     .data(data.values)
                 //console.log(dots)
