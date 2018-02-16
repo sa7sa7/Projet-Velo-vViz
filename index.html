@@ -539,25 +539,34 @@
             minutes = current_value * 5 + 10 * 60 - ind * 24 * 60;
             hour = parseInt(minutes/60);
             minutes = parseInt(minutes%60);
-            
-            var b = false;
-            if (hour >= 24) {
-                hour = hour - 24;
-                ind += 1;
-                b = true;
-            }
-            if(b) {
-                day_date += 1;
-                b = false;
+            if(current_value > last_value) {
+                var b = false;
+                if (hour >= 24) {
+                    hour = hour - 24;
+                    ind += 1;
+                    b = true;
+                }
+                if(b) {
+                    day_date += 1;
+                    b = false;
+                }
             }
             if(current_value < last_value) {
-                //if(minutes < 0) {
-                //    minutes = 60 + minutes;
-                //}
+                if(minutes < 0) {
+                    minutes = 60 + minutes;
+                }
+                if(hour<0) {
+                    hour = 24 + hour -1;
+                    ind -= 1;
+                }
+                
                 if (hour === 0 && minutes === 0 ) {
-                    hour = 23;
                     day_date -= 1;
                 }
+                
+                //minutes = 60 + minutes;
+                //console.log(hour);
+                //console.log(minutes);
             }
             var dateExact = " 0"+ day_date +"/02/2018- "+hour+":"+minutes;
             if(hour < 10 && minutes < 10) {
@@ -578,6 +587,7 @@
 //MAIN//////////////////////////////////////////////////////////////////////////////////           
         function mainCode(fileName) {
             d3.json(fileName, function(err, data) {
+                console.log(data)
                 var dots = g.selectAll("circle.dot")
                     .data(data.values)
                 //console.log(dots)
@@ -603,7 +613,7 @@
                     "stroke-width": 1
                 })
                 .transition().duration(1000)
-                .attr("r",4)
+                .attr("r", 4)
                 // render our initial visualization
                 render()
                 veloArrond(data)
