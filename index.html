@@ -48,7 +48,7 @@
             height: 250px;
             padding: 2px;
             font: 10px sans-serif;
-            background: rgba(76, 175, 80, 0.1);
+            background: rgba(76, 175, 80, 0);
             border: 2px;
             border-radius: 18px;
             pointer-events: none;
@@ -355,16 +355,16 @@
                         "value": d.available_bikes,
                         "posXi": d3.event.pageX + 50,
                         "posYi": d3.event.pageY,
-                        "posXf": 100,
-                        "posYf": 436
+                        "posXf": screen.width-345,
+                        "posYf": screen.height-375
                     },
                     {
                         "label": "Available Stands",
                         "value": d.available_bike_stands,
                         "posXi": d3.event.pageX + 50,
                         "posYi": d3.event.pageY + 20,
-                        "posXf": 100,
-                        "posYf": 466
+                        "posXf": screen.width-345,
+                        "posYf": screen.height-345
                     },
                 ];
 
@@ -432,9 +432,13 @@
   x.domain(tab);
   y.domain([0, maxBikes]);
     // add axis
+    var screenH1 = screen.height -170;
+    var screenH2 = screenH1-210 ;
+
   svg.append("g").attr("id", "axe1")
       .attr("class", "x axis")
-      .attr("transform", "translate(950," + 750 + ")")
+      .attr("id","axis1")
+      .attr("transform", "translate(950," + screenH1 + ")")
       .call(xAxis)
     .selectAll("text")
       .style("text-anchor", "end")
@@ -445,7 +449,8 @@
     
   svg.append("g").attr("id", "axe2")
       .attr("class", "y axis")
-      .attr("transform", "translate(950," + 540 + ")")
+      .attr("id","axis2")
+      .attr("transform", "translate(950," + screenH2 + ")")
       .call(yAxis)
     .append("text")
       .attr("transform", "rotate(-90)")
@@ -498,8 +503,9 @@
      
      svg.selectAll("bar").attr("id", "barr").data(element.previsions)
     .enter().append("rect")
-      .attr("transform", "translate(950," + 540 + ")")
+      .attr("transform", "translate(950," + screenH2 + ")")
       .attr("class", "bar")
+      .attr("id", "rectPrev")
       .attr("x",function(d) { return x(d.prev); })
       .attr("width", x.rangeBand())
       .attr("y",function(d) { return y(d.value); })
@@ -587,8 +593,8 @@
                     .transition()
                     .duration(1000)
                     .style("opacity", .7)
-                    .transition().duration(1000).attr("x", 10)
-                    .transition().duration(1000).attr("y", 360)
+                    .transition().duration(1000).attr("x", screen.width- 450)
+                    .transition().duration(1000).attr("y", screen.height - 450)
 
 
                 d3.select("#htmlcont")
@@ -596,8 +602,8 @@
                     .duration(1000)
                     .style("opacity", .7);
                 d3.select("#htmlcont").html("<h2>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspNº: " + d.number + " " + d.name.toUpperCase() + "<h2>Adresse: " + d.address + "</h2></h2> <h2>Velov: " + d.available_bikes + "</h2></h2> <h2>Stand: " + d.available_bike_stands + "</h2><h2>Prediction:</h2>")
-                    .style("left", 20 + "px")
-                    .style("top", 360 + "px")
+                    .style("left", screen.width -425 + "px")
+                    .style("top", screen.height -450 + "px")
             }
         //FUNCTIONS SOURIS////////////////////////////////////////////////////////////////////777
             function handleMouseClicked(d, i) {
@@ -605,7 +611,6 @@
                 createFrame(d)
                 createBarChart(d)
                 createPieChart(d)
-                svg.selectAll("rect").remove()
                 Previsions(d)
                 render();
             }
@@ -655,6 +660,9 @@
                 svg.selectAll("#bars").transition().duration(1000).attr("width", 0).remove()
                 svg.selectAll("#bar").remove()
                 svg.selectAll("#idcont").remove()
+                svg.selectAll("#rectPrev").remove()
+                svg.selectAll("#axis1").remove()
+                svg.selectAll("#axis2").remove()
 
                 divGra.transition()
                     .duration(500)
