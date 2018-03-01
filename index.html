@@ -45,7 +45,7 @@
             position: absolute;
             opacity: 0;
             width: 400px;
-            height: 250px;
+            height: 200px;
             padding: 2px;
             font: 10px sans-serif;
             background: rgba(76, 175, 80, 0);
@@ -75,7 +75,7 @@
             position: absolute;
             text-align: center;
             width: 400px;
-            height: 250px;
+            height: 200px;
             padding: 2px;
         }
 
@@ -173,8 +173,6 @@
 
 //DEFINITION DE DIVS////////////////////////////////////////////////////
         // Setup our svg layer that we can manipulate with d3
-        var svgGra = d3.select(map.getPanes().overlayPane)
-            .append("svg");
 
         var svg = d3.select(map.getPanes().overlayPane)
             .append("svg");
@@ -358,7 +356,7 @@
                         "posXi": d3.event.pageX + 50,
                         "posYi": d3.event.pageY,
                         "posXf": screen.width-345,
-                        "posYf": screen.height-375
+                        "posYf": screen.height-218
                     },
                     {
                         "label": "Available Stands",
@@ -366,7 +364,7 @@
                         "posXi": d3.event.pageX + 50,
                         "posYi": d3.event.pageY + 20,
                         "posXf": screen.width-345,
-                        "posYf": screen.height-345
+                        "posYf": screen.height-184
                     },
                 ];
 
@@ -597,16 +595,16 @@
                     .duration(1000)
                     .style("opacity", .7)
                     .transition().duration(1000).attr("x", screen.width- 450)
-                    .transition().duration(1000).attr("y", screen.height - 450)
+                    .transition().duration(1000).attr("y", screen.height - 350)
 
 
                 d3.select("#htmlcont")
                     .transition()
                     .duration(1000)
                     .style("opacity", .7);
-                d3.select("#htmlcont").html("<h2>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspNº: " + d.number + " " + d.name.toUpperCase() + "<h2>Adresse: " + d.address + "</h2></h2> <h2>Velov: " + d.available_bikes + "</h2></h2> <h2>Stand: " + d.available_bike_stands + "</h2><h2>Prediction:</h2>")
+                d3.select("#htmlcont").html("<h2>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspNº: " + d.number + " " + d.name.toUpperCase() + "<h2>Adresse: " + d.address + "</h2><h2>Commune: " + d.commune + "</h2><h2>Status: " + d.status + "<h2>Velov: " + d.available_bikes + "</h2></h2> <h2>Stand: " + d.available_bike_stands + "</h2>")
                     .style("left", screen.width -425 + "px")
-                    .style("top", screen.height -450 + "px")
+                    .style("top", screen.height -350 + "px")
             }
         //FUNCTIONS SOURIS////////////////////////////////////////////////////////////////////777
             function handleMouseClicked(d, i) {
