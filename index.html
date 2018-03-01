@@ -436,11 +436,12 @@
     // add axis
     var screenH1 = screen.height -170;
     var screenH2 = screenH1-210 ;
+    var pos_bar_chart = 100;
 
   svg.append("g").attr("id", "axe1")
       .attr("class", "x axis")
       .attr("id","axis1")
-      .attr("transform", "translate(950," + screenH1 + ")")
+      .attr("transform", "translate(" + pos_bar_chart + "," + screenH1 + ")")
       .call(xAxis)
     .selectAll("text")
       .style("text-anchor", "end")
@@ -452,7 +453,7 @@
   svg.append("g").attr("id", "axe2")
       .attr("class", "y axis")
       .attr("id","axis2")
-      .attr("transform", "translate(950," + screenH2 + ")")
+      .attr("transform", "translate(" + pos_bar_chart + "," + screenH2 + ")")
       .call(yAxis)
     .append("text")
       .attr("transform", "rotate(-90)")
@@ -505,7 +506,7 @@
      
      svg.selectAll("bar").attr("id", "barr").data(element.previsions)
     .enter().append("rect")
-      .attr("transform", "translate(950," + screenH2 + ")")
+      .attr("transform", "translate(" + pos_bar_chart + "," + screenH2 + ")")
       .attr("class", "bar")
       .attr("id", "rectPrev")
       .attr("x",function(d) { return x(d.prev); })
