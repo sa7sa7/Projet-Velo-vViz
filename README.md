@@ -155,7 +155,7 @@ As for the Slider, it wasn't quite visible during the presentation. So, we made 
 <table border="0">
   <tr>
     <td>
-      <img src="img/sliderMoreVIsual.PNG" style="width: 100px;">
+      <img src="img/sliderMoreVIsual1.PNG" style="width: 100px;">
     </td>
   </tr>
 </table>
