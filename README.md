@@ -25,3 +25,28 @@ The application therefore aims to serve both the citizen and the city council. T
     </td>
   </tr>
 </table>
+
+
+## FUNCTIONALITIES
+
+In this section we will explain in detail the different functionalities of the project. For this we will use screen captures and we will discuss how to interact with the screen.
+
+First of all, we want to comment why we have chosen this layout. At first we had thought to divide the information and the map in different "div" like other groups have done. Finally, we thought it would be more visual to introduce the information on the map and allowing the user more flexibility. This way of arranging the elements caused us some problems of overlap but finnaly it allowed us to understand the language and also the DOM html.
+
+### 1. General Information
+
+The general information refers to everything that is displayed when you start the application. On the one hand we see all bike stations represented by a circle. This circle has a different size and color for each one depending on the information. The color is a degraded scale between red and green that indicates if the station is full (green), empty (red). The size of the circle is based on the size of the station, the larger circle being the larger the capacity.
+
+In terms of zooming and scrolling the screen, the operation is the same as that of Google Maps, using the buttons at the top left or the mouse.
+
+On the other hand, when we pass the mouse over a station there is a pop up that appears with basic information, name, address, number of bikes and number of seats. The box appears with an opacity transition and disappears in the same way when we remove the mouse.
+
+Finally, if you click on the station, three new graphics appear. First a Pie Chart that indicates again the availability information but in percentage, and then a box that moves with a transition to the lower right corner that contains more detailed information. Finally there is a prediction chart that will be explained below.
+
+<table border="0">
+  <tr>
+    <td>
+      <img src="img/Rapport1.JPG" style="width: 100px;">
+    </td>
+  </tr>
+</table>
