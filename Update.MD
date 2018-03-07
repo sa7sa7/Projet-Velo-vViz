@@ -36,7 +36,8 @@ Sorry in French
 
 ## List of improvements:
 
- -Faster transitions: We have modified the speed of the transitions to make them more visual and also the sense of them. It must be said that they were arranged in this way so that the transition could be appreciated and also to try different movements in parallel. Even so we agree that it is not the best way and hence the modifications.
+ ### Faster transitions: 
+ We have modified the speed of the transitions to make them more visual and also the sense of them. It must be said that they were arranged in this way so that the transition could be appreciated and also to try different movements in parallel. Even so we agree that it is not the best way and hence the modifications.
  
  ### Title of the page.
  
