@@ -50,3 +50,16 @@ Finally, if you click on the station, three new graphics appear. First a Pie Cha
     </td>
   </tr>
 </table>
+
+
+### 2. Velov by neighborhood
+
+This second functionality is more directed to the town Council or to someone who wants to draw conclusions from the given information. This allows us to see the number of bikes in each neighborhood at each moment as it is updated with the movement of the slide bar.
+
+For example, Villeurbane is the largest neighborhood and also the furthest from the center. If we move the slide bar we realize that the number of bikes decreases in the morning and increases in the afternoon. This is due to work schedules, as many people move to the center and then come back for dinner at home. We have checked this with other neighborhoods and on weekends and the trend is even more exaggerated. This can serve as a method of decision when placing new stations or distributing bikes in the city.
+
+The mode of use is by clicking on the "Arrondissement" button on the top left where a table with all the information appears as a transition, as we can see below. Clicking again the box disappears. The information is updated with the time change of the slide Bar.
+
+
+### 3. Real-time script and slide bar
+### 4. Bikes prediction
