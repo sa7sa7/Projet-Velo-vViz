@@ -2,7 +2,7 @@
 
 ## INTRODUCTION
 
-This project is carried out by three students of the École Centrale de Lyon during the subject of Data Visualization during the last semester of the university. The components are:
+This project is carried out by three students of the École Centrale de Lyon during the subject of Data Visualization during the last semester of the university. The members are:
 
 • Chamsedinne
 • Salah
@@ -79,7 +79,18 @@ Each of the number is the neighborhood, and VV is: Vaulx en Velin, V: Villeurban
 </table>
 
 
-### 3. Real-time script and slide bar SALAH
+### 3. Real-time script and slide bar
+In order to make our project more valuable, we created a real time python script which downloads a new file every 5 minutes from the official site of DataGranDLyon (https://download.data.grandlyon.com/ws/rdata/jcd_jcdecaux.jcdvelov/all.json).
+For the moment, we get files for 24 hours (296 files) so that we can have the history of the last 24 hours. Passinf this 24 hours limit, we replace the older file with the first new file of the new day (next 24 hours) and so on...
+To ease to interaction of the user with this application, we created a slidebar so that the user can move the the cursor into the position he wants and can read the corresponding date to that position. Each step of the slider counts for 5 minutes. In other words, if we move one step, we load a new file containing the data of the next five minutes.
+
+<table border="0" align="center">
+  <tr>
+    <td>
+      <img src="img/ScriptRealTime.PNG" style="width: 100px;">
+    </td>
+  </tr>
+</table>
 ### 4. Bikes prediction CHAMS
 PUT SOME IMAGES
 
@@ -125,7 +136,15 @@ The button makes a frame appear with a transition and disappears when you click 
 
 Regarding transitions, we have taken into account the feedback given by our colleagues and we have modified the speed and shape of the transitions so that it is more visual and we do not miss the real interest with the movements
  
-#### Slider more visual: SALAH
+#### Slider more visible: 
+As for the Slider, it wasn't quite visible during the presentation. So, we made sure to add some CSS code in order to make it more visible and so that the user can notice it at first sight.
+<table border="0">
+  <tr>
+    <td>
+      <img src="img/sliderMoreVIsual.PNG" style="width: 100px;">
+    </td>
+  </tr>
+</table>
  
 #### Prediction chart visualization: CHAMSEDDINE
  
