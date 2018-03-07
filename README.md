@@ -46,7 +46,7 @@ Finally, if you click on the station, three new graphics appear. First a Pie Cha
 <table border="0" align="center">
   <tr>
     <td>
-      <img src="img/Rapport1.JPG" style="width: 100px;">
+      <img src="img/Rapport1.JPG" style="width: 100px; align: center">
     </td>
   </tr>
 </table>
