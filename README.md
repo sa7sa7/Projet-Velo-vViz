@@ -60,6 +60,14 @@ For example, Villeurbane is the largest neighborhood and also the furthest from 
 
 The mode of use is by clicking on the "Arrondissement" button on the top left where a table with all the information appears as a transition, as we can see below. Clicking again the box disappears. The information is updated with the time change of the slide Bar.
 
+<table border="0">
+  <tr>
+    <td>
+      <img src="img/Rapport2.JPG" style="width: 100px;">
+    </td>
+  </tr>
+</table>
+
 
 ### 3. Real-time script and slide bar
 ### 4. Bikes prediction
