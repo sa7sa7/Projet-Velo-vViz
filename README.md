@@ -101,7 +101,7 @@ In our work we don"t aim to develop such a data science algorithm we just want t
 <table border="0" align="center">
   <tr>
     <td>
-      <img src="img/previsitions.PNG" style="width: 100px;">
+      <img src="img/previsions.PNG" style="width: 100px;">
     </td>
   </tr>
 </table>
@@ -172,4 +172,4 @@ As a main conclusion we all agree that the subject has helped us to learn the ba
 
 The idea of uploading everything online and having access to other projects is also interesting to be able to take ideas.
 
-The presentation mode of the projects has been very useful for possible improvements. Involving students through a Google Docs to provide their points of view has allowed everyone to be attentive and that the feedback is positive.
+The presentation of the projects has been very useful for possible improvements. Involving students through a Google Docs to provide their points of view has allowed everyone to be attentive. The feedback has been very positive.
