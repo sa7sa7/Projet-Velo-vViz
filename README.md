@@ -68,6 +68,16 @@ The mode of use is by clicking on the "Arrondissement" button on the top left wh
   </tr>
 </table>
 
+Each of the number is the neighborhood, and VV is: Vaulx en Velin, V: Villeurbane. Here the map of Lyon.
+
+<table border="0">
+  <tr>
+    <td>
+      <img src="img/Rapport3.JPG" style="width: 100px;">
+    </td>
+  </tr>
+</table>
+
 
 ### 3. Real-time script and slide bar
 ### 4. Bikes prediction
