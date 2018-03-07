@@ -79,8 +79,9 @@ Each of the number is the neighborhood, and VV is: Vaulx en Velin, V: Villeurban
 </table>
 
 
-### 3. Real-time script and slide bar
-### 4. Bikes prediction
+### 3. Real-time script and slide bar SALAH
+### 4. Bikes prediction CHAMS
+PUT SOME IMAGES
 
 ## Improvements
 
