@@ -81,3 +81,24 @@ Each of the number is the neighborhood, and VV is: Vaulx en Velin, V: Villeurban
 
 ### 3. Real-time script and slide bar
 ### 4. Bikes prediction
+
+## Improvements
+
+During the presentation session of the project we had a lot of feedback that we are going to put here to see the points that we have improved and those that remain to be done.
+
+Here the feedback (sorry in french):
+
+<table border="0">
+  <tr>
+    <td>
+      <img src="img/Rapport4.JPG" style="width: 100px;">
+    </td>
+  </tr>
+</table>
+
+Here we see the positive points, the negatives and the possible improvements to be made.
+
+### List of improvements:
+
+## CONCLUSIONS
+
