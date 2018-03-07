@@ -100,5 +100,24 @@ Here we see the positive points, the negatives and the possible improvements to 
 
 ### List of improvements:
 
+ -Faster transitions: We have modified the speed of the transitions to make them more visual and also the sense of them. It must be said that they were arranged in this way so that the transition could be appreciated and also to try different movements in parallel. Even so we agree that it is not the best way and hence the modifications.
+ 
+ -Title of the page.
+ 
+ -Help Button: JON
+ 
+ -Slider more visual: SALAH
+ 
+ -Prediction chart visualization: CHAMSEDDINE
+ 
+ PUT IN THE VIDEO
+ 
 ## CONCLUSIONS
 
+Firstly we wanted to comment that teamwork has been interesting but it has also been a major challenge. None of us knew the D3 library and therefore the organization at the beginning was complicated. We worked all together during the first sessions to reach the base of our project (map plus points) then we divided into three separate tasks: general information, slide bar and real time and prediction. We did all this in parallel thanks to Github. Finally we made a final session to fix the small bug and finalize the presentation.
+
+As a main conclusion we all agree that the subject has helped us to learn the bases of D3 that we did not know until now. We consider that the subject was well planned and above all, the interaction between teams has allowed everyone to know everyone's projects.
+
+The idea of uploading everything online and having access to other projects is also interesting to be able to take ideas.
+
+The presentation mode of the projects has been very useful for possible improvements. Involving students through a Google Docs to provide their points of view has allowed everyone to be attentive and that the feedback is positive.
