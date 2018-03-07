@@ -79,7 +79,7 @@ We have introduced a box so that the reading of the prediction chart is easier t
 <table border="0">
   <tr>
     <td>
-      <img src="img/Rapport6.JPG" style="width: 100px;">
+      <img src="img/Rapport7.JPG" style="width: 100px;">
     </td>
   </tr>
 </table>
@@ -89,7 +89,7 @@ We have introduced a box so that the reading of the prediction chart is easier t
 <table border="0">
   <tr>
     <td>
-      <img src="img/Rapport7.JPG" style="width: 100px;">
+      <img src="img/Rapport6.JPG" style="width: 100px;">
     </td>
   </tr>
 </table>
