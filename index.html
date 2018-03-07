@@ -69,6 +69,20 @@
             pointer-events: none;
             opacity: 0;
         }
+        div.tooltip5 {
+            position: absolute;
+            width: 235px;
+            height: 135px;
+            left: 1000px;
+            top: 80px;
+            padding: 2px;
+            font: 10px sans-serif;
+            background:#afe0a8;
+            border: 2px;
+            border-radius: 10px;
+            pointer-events: none;
+            opacity: 0;
+        }
 
         .cont {
 
@@ -79,7 +93,7 @@
             padding: 2px;
         }
 
-        #data-changer {
+        #data-changer3 {
             position: absolute;
             font: 15px sans-serif;
             text-align: center;
@@ -92,6 +106,20 @@
             left: 50px;
             border-radius: 10px;
             background-color: #4da8f2;
+        }
+        #data-changer2 {
+            position: absolute;
+            font: 15px sans-serif;
+            text-align: center;
+            color: white;
+            opacity: 0.88;
+            width: 120px;
+            height: 50px;
+            padding: 5px;
+            top: 10px;
+            left: 1120px;
+            border-radius: 10px;
+            background-color: #63c454;
         }
         #date-changer {
             position:absolute;
@@ -143,12 +171,13 @@
     <div id="map"></div>
     <div>
         <input type="range" value="0" min="0" max="296" orient="vertical" id="date-changer"/>
-      </div>
-      <div>
+    </div>
+    <div>
         <label><span id="dateValue"></span></label>
-      </div>
+    </div>
     <div id="option">
-        <input name="updateButton" id="data-changer" type="button" value="Arrondissement" onclick="updateData()" />
+        <input name="updateButton" id="data-changer3" type="button" value="Arrondissement" onclick="updateData()" />
+        <input name="updateButton2" id="data-changer2" type="button" value="help" onclick="help()" />
     </div>
     <script src="//cdnjs.cloudflare.com/ajax/libs/d3-legend/1.1.0/d3-legend.js"></script>
     <script>
@@ -200,6 +229,11 @@
         var divArr2 = d3.select("body").append("div")
             .attr("id", "arr2")
             .attr("class", "tooltip4")
+            .style("opacity", 0);
+
+        var divArr3 = d3.select("body").append("div")
+            .attr("id", "arr3")
+            .attr("class", "tooltip5")
             .style("opacity", 0);
 ///////////////////////////////////////////////////////////////////////////
 
@@ -260,12 +294,32 @@
             //console.log(nbvelov)
 
         }
+        var clicked2 = false;
+        function help(){
+            console.log(clicked2)
+             if (clicked2 == false) {
+             divArr3.transition()
+                    .duration(1000)
+                    .style("opacity", .85);
+
+            divArr3.html("<h2>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspApplication help</h2><p>&nbsp&nbsp&nbsp&nbsp&nbspClick on the slide bar to select the date.</p><p>&nbsp&nbsp&nbsp&nbsp&nbspFly over the stations to obtain information</p><p>&nbsp&nbsp&nbsp&nbsp&nbspClick on the station for more detailed information</p><p>&nbsp&nbsp&nbsp&nbsp&nbspArrondisement button: number of velov by &nbsp&nbsp&nbsp&nbsp&nbspneighborhood</p>")
+                    .style("left", 1000)
+                    .style("top", 20)
+                clicked2 = true
+                }else {
+                divArr3.transition()
+                    .duration(1000)
+                    .style("opacity", 0);
+                clicked2 = false
+            }
+        }
+
         var clicked = false;
         function updateData() {
 
             if (clicked == false) {
                 divArr2.transition()
-                    .duration(1500)
+                    .duration(1000)
                     .style("opacity", .85);
                 divArr2.html("<h2>Nb de velov par quartier&nbsp&nbsp&nbsp&nbsp1: " + nbvelov[0] + "&nbsp&nbsp&nbsp&nbsp2: " + nbvelov[1] + "&nbsp&nbsp&nbsp&nbsp3: " + nbvelov[2] + "&nbsp&nbsp&nbsp&nbsp4: " + nbvelov[3] + "&nbsp&nbsp&nbsp&nbsp&nbsp5 : " + nbvelov[4] + "&nbsp&nbsp&nbsp&nbsp6: " + nbvelov[5] + "&nbsp&nbsp&nbsp&nbsp7: " + nbvelov[6] + "&nbsp&nbsp&nbsp&nbsp8: " + nbvelov[7] + "&nbsp&nbsp&nbsp&nbsp9: " + nbvelov[8] + "&nbsp&nbsp&nbsp&nbspV: " + nbvelov[9] + "&nbsp&nbsp&nbsp&nbspVV: " + nbvelov[10] + "&nbsp&nbsp&nbsp&nbspCC: " + nbvelov[11] + " </h2>")
                     .style("left", 500)
@@ -274,7 +328,7 @@
                 clicked = true
             } else {
                 divArr2.transition()
-                    .duration(1500)
+                    .duration(1000)
                     .style("opacity", 0);
                 clicked = false
             }
@@ -386,10 +440,10 @@
                         return d.posYi;
                     })
                     .attr("height", 10)
-                    .transition().duration(1000).attr("y", function(d) {
+                    .transition().duration(500).attr("y", function(d) {
                         return d.posYf;
                     })
-                    .transition().duration(1000).attr("x", function(d) {
+                    .transition().duration(500).attr("x", function(d) {
                         return d.posXf;
                     })
                 /////////////////////////////////////////////////////////////
@@ -592,15 +646,15 @@
                     .attr("x", d3.event.pageX)
                     .attr("y", d3.event.pageY)
                     .transition()
-                    .duration(1000)
+                    .duration(500)
                     .style("opacity", .7)
-                    .transition().duration(1000).attr("x", screen.width- 450)
-                    .transition().duration(1000).attr("y", screen.height - 350)
+                    .transition().duration(500).attr("x", screen.width- 450)
+                    .transition().duration(500).attr("y", screen.height - 350)
 
 
                 d3.select("#htmlcont")
                     .transition()
-                    .duration(1000)
+                    .duration(500)
                     .style("opacity", .7);
                 d3.select("#htmlcont").html("<h2>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspNº: " + d.number + " " + d.name.toUpperCase() + "<h2>Adresse: " + d.address + "</h2><h2>Commune: " + d.commune + "</h2><h2>Status: " + d.status + "<h2>Velov: " + d.available_bikes + "</h2></h2> <h2>Stand: " + d.available_bike_stands + "</h2>")
                     .style("left", screen.width -425 + "px")
@@ -628,7 +682,7 @@
                 });
 
                 div.transition()
-                    .duration(1500)
+                    .duration(1000)
                     .style("opacity", .7);
                 div.html("<h2>Name: " + d.name + "<h2>Adresse: " + d.address + "</h2></h2> <h2>Nb Velov: " + d.available_bikes + "</h2></h2> <h2>Nb Stations: " + d.available_bike_stands + "</h2>")
                     .style("left", (d3.event.pageX) + "px")
@@ -638,7 +692,7 @@
             function handleMouseOut(d, i) {
                 // Use D3 to select element, change color back to normal
                 div.transition()
-                    .duration(1000)
+                    .duration(500)
                     .style("opacity", 0);
                 render();
             }
