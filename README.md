@@ -21,7 +21,7 @@ The application therefore aims to serve both the citizen and the city council. T
 <table border="0">
   <tr>
     <td>
-      <img src="img/Rapport.jpg" style="width: 100px;">
+      <img src="img/Rapport.JPG" style="width: 100px;">
     </td>
   </tr>
 </table>
