@@ -101,7 +101,7 @@ In our work we don"t aim to develop such a data science algorithm we just want t
 <table border="0" align="center">
   <tr>
     <td>
-      <img src="img/previsitions.PNG" style="width: 100px;">
+      <img src="img/previsions.PNG" style="width: 100px;">
     </td>
   </tr>
 </table>
