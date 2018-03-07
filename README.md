@@ -155,10 +155,22 @@ As for the Slider, it wasn't quite visible during the presentation. So, we made 
 <table border="0">
   <tr>
     <td>
-      <img src="img/sliderMoreVIsual1.PNG" style="width: 100px;">
+      <img src="img/sliderMoreVIsual.PNG" style="width: 100px;">
     </td>
   </tr>
 </table>
+
+
+#### Previsions barchart more visible: 
+As our colleague have suggested, we have added a transparant background for the previsions barchart to look more readble and clear 
+<table border="0">
+  <tr>
+    <td>
+      <img src="img/previsions.PNG" style="width: 100px;">
+    </td>
+  </tr>
+</table>
+ 
  
 #### Prediction chart visualization: CHAMSEDDINE
  
