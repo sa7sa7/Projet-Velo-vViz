@@ -172,9 +172,7 @@ As our colleague have suggested, we have added a transparant background for the 
 </table>
  
  
-#### Prediction chart visualization: CHAMSEDDINE
- 
- PUT IN THE VIDEO
+
  
 ## CONCLUSIONS
 
