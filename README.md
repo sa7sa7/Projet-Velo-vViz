@@ -103,13 +103,31 @@ Here we see the positive points, the negatives and the possible improvements to 
 
  -Faster transitions: We have modified the speed of the transitions to make them more visual and also the sense of them. It must be said that they were arranged in this way so that the transition could be appreciated and also to try different movements in parallel. Even so we agree that it is not the best way and hence the modifications.
  
- -Title of the page.
+ #### Title of the page.
  
- -Help Button: JON
+Finally we have not put a title since we believe that it takes space for other information, even so we will think how to integrate it in another way.
  
- -Slider more visual: SALAH
+ #### Help Button:
  
- -Prediction chart visualization: CHAMSEDDINE
+ We have introduced a help button to briefly describe the operation of the application. We have not wanted indications overload, if more  information is needed it is better to come here or watch the video on the internet.
+ 
+The button makes a frame appear with a transition and disappears when you click on it again.
+
+<table border="0">
+  <tr>
+    <td>
+      <img src="img/Rapport5.JPG" style="width: 100px;">
+    </td>
+  </tr>
+</table>
+
+#### Transitions
+
+Regarding transitions, we have taken into account the feedback given by our colleagues and we have modified the speed and shape of the transitions so that it is more visual and we do not miss the real interest with the movements
+ 
+#### Slider more visual: SALAH
+ 
+#### Prediction chart visualization: CHAMSEDDINE
  
  PUT IN THE VIDEO
  
