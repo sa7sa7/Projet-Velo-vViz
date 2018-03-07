@@ -93,6 +93,16 @@
             padding: 2px;
         }
 
+        .cont2 {
+
+            position: absolute;
+            text-align: center;
+            width: 600px;
+            height: 300px;
+            padding: 2px;
+        }
+
+
         #data-changer3 {
             position: absolute;
             font: 15px sans-serif;
@@ -666,10 +676,29 @@
                     .style("left", screen.width -425 + "px")
                     .style("top", screen.height -350 + "px")
             }
+
+            function createFramePrevisions(d) {
+                svgGra.append("rect")
+                    .style("fill", "#d8faff")
+                    .style("opacity", .0)
+                    .attr("id", "idcont2")
+                    .attr("class", "cont2")
+                    .attr("x", d3.event.pageX)
+                    .attr("y", d3.event.pageY)
+                    .transition()
+                    .duration(500)
+                    .style("opacity", .7)
+                    .transition().duration(500).attr("x", 50)
+                    .transition().duration(500).attr("y", screen.height - 350)
+ 
+            }
+            
+
         //FUNCTIONS SOURIS////////////////////////////////////////////////////////////////////777
             function handleMouseClicked(d, i) {
                 EraseContent()
                 createFrame(d)
+                createFramePrevisions()
                 createBarChart(d)
                 createPieChart(d)
                 Previsions(d)
