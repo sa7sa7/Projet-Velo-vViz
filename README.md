@@ -18,7 +18,7 @@ Finally we chose the dataset of the Lyon bikes which, in addition to containing 
 
 The application therefore aims to serve both the citizen and the city council. The citizen can see the availability of bikes in real time and a prediction for the following hours and the city can draw conclusions from the visually represented history.
 
-<table border="0">
+<table border="0" align="center">
   <tr>
     <td>
       <img src="img/Rapport.JPG" style="width: 100px;">
@@ -43,7 +43,7 @@ On the other hand, when we pass the mouse over a station there is a pop up that 
 
 Finally, if you click on the station, three new graphics appear. First a Pie Chart that indicates again the availability information but in percentage, and then a box that moves with a transition to the lower right corner that contains more detailed information. Finally there is a prediction chart that will be explained below.
 
-<table border="0">
+<table border="0" align="center">
   <tr>
     <td>
       <img src="img/Rapport1.JPG" style="width: 100px;">
@@ -70,7 +70,7 @@ The mode of use is by clicking on the "Arrondissement" button on the top left wh
 
 Each of the number is the neighborhood, and VV is: Vaulx en Velin, V: Villeurbane. Here the map of Lyon.
 
-<table border="0">
+<table border="0" align="center">
   <tr>
     <td>
       <img src="img/Rapport3.JPG" style="width: 100px;">
